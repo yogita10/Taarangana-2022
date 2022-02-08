@@ -679,29 +679,29 @@
         B(t.join(" "))
       );
     },
-    // preventDefaults: function (t) {
-    //   var e = t.srcEvent,
-    //     i = t.offsetDirection;
-    //   if (this.manager.session.prevented) return void e.preventDefault();
-    //   var n = this.actions,
-    //     s = v(n, he) && !pe[he],
-    //     r = v(n, de) && !pe[de],
-    //     o = v(n, ue) && !pe[ue];
-    //   if (s) {
-    //     var a = 1 === t.pointers.length,
-    //       l = t.distance < 2,
-    //       c = t.deltaTime < 250;
-    //     if (a && l && c) return;
-    //   }
-    //   return o && r
-    //     ? void 0
-    //     : s || (r && i & qt) || (o && i & Ft)
-    //     ? this.preventSrc(e)
-    //     : void 0;
-    // },
-    // preventSrc: function (t) {
-    //   (this.manager.session.prevented = !0), t.preventDefault();
-    // },
+    preventDefaults: function (t) {
+      var e = t.srcEvent,
+        i = t.offsetDirection;
+      if (this.manager.session.prevented) return void e.preventDefault();
+      var n = this.actions,
+        s = v(n, he) && !pe[he],
+        r = v(n, de) && !pe[de],
+        o = v(n, ue) && !pe[ue];
+      if (s) {
+        var a = 1 === t.pointers.length,
+          l = t.distance < 2,
+          c = t.deltaTime < 250;
+        if (a && l && c) return;
+      }
+      return o && r
+        ? void 0
+        : s || (r && i & qt) || (o && i & Ft)
+        ? this.preventSrc(e)
+        : void 0;
+    },
+    preventSrc: function (t) {
+      (this.manager.session.prevented = !0), t.preventDefault();
+    },
   };
   var fe = 1,
     ve = 2,
@@ -1058,7 +1058,7 @@
     recognize: function (t) {
       var e = this.session;
       if (!e.stopped) {
-        // this.touchAction.preventDefaults(t);
+        this.touchAction.preventDefaults(t);
         var i,
           n = this.recognizers,
           s = e.curRecognizer;
@@ -1125,9 +1125,9 @@
       var i = this.handlers[t] && this.handlers[t].slice();
       if (i && i.length) {
         (e.type = t);
-          // (e.preventDefault = function () {
-          //   e.srcEvent.preventDefault();
-          // })
+          (e.preventDefault = function () {
+            e.srcEvent.preventDefault();
+          })
         for (var n = 0; n < i.length; ) i[n](e), n++;
       }
     },
@@ -1394,7 +1394,7 @@
       a = null;
     $(this).on("mousewheel DOMMouseScroll", function (e) {
       if (!$(".outer-nav").hasClass("is-vis")) {
-        // e.preventDefault();
+        e.preventDefault();
         var i = e.originalEvent.wheelDelta
           ? -e.originalEvent.wheelDelta
           : 20 * e.originalEvent.detail;
